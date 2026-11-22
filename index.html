@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Моя бусинка</title>
+<meta name="description" content="Для самой любимой: я безумно тебя люблю, моя бусинка ❤️">
+<meta name="theme-color" content="#2a0a1a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Моя бусинка">
+<meta property="og:description" content="Для самой любимой: я безумно тебя люблю ❤️">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#2a0a1a; --bg2:#4a1230; --text:#fff1f4; --muted:#f2b8c8; --pearl:#fff6f0; --rose:#ff4d7a;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#2a0a1a;--bg2:#4a1230;--text:#fff1f4;--muted:#f2b8c8}}
+:root[data-theme="dark"]{--bg:#2a0a1a;--bg2:#4a1230;--text:#fff1f4;--muted:#f2b8c8}
+*{box-sizing:border-box}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0;height:100%;overflow:hidden;color:var(--text);
+  background:radial-gradient(ellipse at 50% 35%,var(--bg2),var(--bg) 70%);
+  font-family:'Manrope',system-ui,sans-serif;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:16px;-webkit-tap-highlight-color:transparent;cursor:pointer;
+}
+#heart{width:min(78vw,340px);height:auto;max-height:42vh;overflow:visible}
+.bead{opacity:0;transform-origin:center;transform-box:fill-box;animation:pop .5s ease-out forwards}
+@keyframes pop{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
+#heart.beat{animation:beat 1.6s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.05)}24%{transform:scale(1)}36%{transform:scale(1.04)}}
+h1{
+  font-family:'Marck Script','Segoe Script','Brush Script MT',cursive;
+  font-weight:400;font-size:clamp(34px,9vw,64px);line-height:1.15;margin:18px 0 6px;max-width:14em;
+  opacity:0;animation:fade 1.4s ease 3.2s forwards;
+}
+.emo{font-size:clamp(24px,6vw,38px);letter-spacing:.15em;margin:4px 0;opacity:0;animation:fade 1.2s ease 4s forwards}
+.hint{color:var(--muted);font-size:14px;margin-top:14px;opacity:0;animation:fade 1s ease 5s forwards}
+@keyframes fade{to{opacity:1}}
+.float{position:fixed;pointer-events:none;font-size:28px;animation:up 2.4s ease-out forwards;z-index:5}
+@keyframes up{from{opacity:1;transform:translateY(0) scale(.6)}to{opacity:0;transform:translateY(-55vh) scale(1.4) rotate(var(--r,0deg))}}
+@media (prefers-reduced-motion:reduce){
+  .bead{animation:none;opacity:1}#heart.beat{animation:none}
+  h1,.emo,.hint{animation:none;opacity:1}.float{animation-duration:.01s}
+}
+</style>
+</head>
+<body>
+<svg id="heart" viewBox="-20 -20 40 38" aria-hidden="true">
+  <defs>
+    <radialGradient id="pg" cx="35%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".45" stop-color="#ffd9e2"/>
+      <stop offset="1" stop-color="#e0527a"/>
+    </radialGradient>
+  </defs>
+</svg>
+<h1>Я безумно тебя люблю, моя бусинка</h1>
+<div class="emo" aria-label="сердечки и поцелуи">❤️❤️❤️💋💋💋</div>
+<div class="hint">Нажми на экран</div>
+<script>
+(function(){
+  var svg=document.getElementById('heart'),NS='http://www.w3.org/2000/svg',N=44,i;
+  for(i=0;i<N;i++){
+    var t=i/N*2*Math.PI;
+    var x=16*Math.pow(Math.sin(t),3)*1.0;
+    var y=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+    var c=document.createElementNS(NS,'circle');
+    c.setAttribute('cx',(x*1.05).toFixed(2));
+    c.setAttribute('cy',(y*1.05+1).toFixed(2));
+    c.setAttribute('r','1.75');
+    c.setAttribute('fill','url(#pg)');
+    c.setAttribute('class','bead');
+    c.style.animationDelay=(i*0.06).toFixed(2)+'s';
+    svg.appendChild(c);
+  }
+  setTimeout(function(){svg.classList.add('beat')},3000);
+  var set=['❤️','💋','💖','💗','🤍'];
+  function burst(px,py){
+    for(var k=0;k<7;k++){
+      var e=document.createElement('div');
+      e.className='float';
+      e.textContent=set[Math.floor(Math.random()*set.length)];
+      e.style.left=(px-14+(Math.random()*80-40))+'px';
+      e.style.top=(py-14+(Math.random()*30-15))+'px';
+      e.style.setProperty('--r',(Math.random()*60-30)+'deg');
+      e.style.animationDelay=(k*0.08)+'s';
+      document.body.appendChild(e);
+      setTimeout((function(el){return function(){el.remove()}})(e),3200);
+    }
+  }
+  document.addEventListener('pointerdown',function(ev){burst(ev.clientX,ev.clientY)});
+})();
+</script>
+</body>
+</html>
